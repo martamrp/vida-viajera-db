@@ -1,0 +1,11 @@
+CREATE TABLE trip (
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	userId INT NOT NULL,
+	reasonId INT NOT NULL,
+	origin VARCHAR(50) NOT NULL,
+	destination VARCHAR(50) NOT NULL,
+	startDate DATE NOT NULL,
+	endDate DATE NOT NULL,
+    CONSTRAINT FK_UserId FOREIGN KEY (userId) REFERENCES user(id),
+    CONSTRAINT FK_ReasonId FOREIGN KEY (reasonId) REFERENCES reason(id)
+);
