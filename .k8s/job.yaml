@@ -1,0 +1,30 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: flyway-migrator-${DRONE_REPO_NAME}-${CI_BUILD_NUMBER}
+spec:
+  template:
+    spec:
+      imagePullSecrets:
+        - name: regcred
+      containers:
+      - name: flyway
+        image: registry.anieto.dev/v2/adrian/vida-viajera-db:1.0.0.${CI_BUILD_NUMBER}
+        args:
+        - -baselineOnMigrate=true
+        - -baselineVersion=1.2
+        - -url="${DB_URL}"
+        - -schemas="${DB_NAME}"
+        - -user="${DB_USER}"
+        - -password="${DB_PASSWORD}"
+        - -locations=filesystem:/sql/schema,filesystem:/sql/data/${ENVIRONMENT}
+        - migrate
+        resources:
+          requests:
+            memory: "200Mi"
+            cpu: "100m"
+          limits:
+            memory: "200Mi"
+            cpu: "100m"
+      restartPolicy: Never
+  backoffLimit: 1
