@@ -29,5 +29,6 @@ steps:
     DB_URL: jdbc:mysql://mysql.production:3306/
     DB_NAME: vidaviajera
   commands:
+    - envsubst < /.kube/config_template > /.kube/config
     # TODO: put scripts inside env folder
-    - kubectl run flyway-migrator-`uuidgen` --rm -it --image=registry.anieto.dev/v2/adrian/vida-viajera-db:1.0.0.${CI_BUILD_NUMBER} --restart=Never -- -baselineOnMigrate=true -baselineVersion=1.2 -url=${DB_URL} -schemas=${DB_NAME} -user=${DB_USER} -password=${DB_PASSWORD} -locations=filesystem:/sql/schema,filesystem:/sql/data/${ENVIRONMENT} migrate
+    - kubectl run flyway-migrator-${DRONE_REPO_NAME}-${CI_BUILD_NUMBER} --rm -it --image=registry.anieto.dev/v2/adrian/vida-viajera-db:1.0.0.${CI_BUILD_NUMBER} --restart=Never -- -baselineOnMigrate=true -baselineVersion=1.2 -url=${DB_URL} -schemas=${DB_NAME} -user=${DB_USER} -password=${DB_PASSWORD} -locations=filesystem:/sql/schema,filesystem:/sql/data/${ENVIRONMENT} migrate
