@@ -19,6 +19,3 @@ CREATE TABLE trip (
     CONSTRAINT FK_UserId FOREIGN KEY (userId) REFERENCES user(id),
     CONSTRAINT FK_ReasonId FOREIGN KEY (reasonId) REFERENCES reason(id)
 );
-
-INSERT INTO reason (id, description) VALUES (1, 'ocio');
-INSERT INTO reason (id, description) VALUES (3, 'trabajo');
