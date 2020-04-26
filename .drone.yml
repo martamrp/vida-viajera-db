@@ -16,7 +16,7 @@ steps:
     branch:
     - master
 - name: deploy
-  image: rubasace/drone-k8s
+  image: rubasace/flyway-port-forward
   environment:
     K8S_CERT_AUTHORITY_DATA:
       from_secret: K8S_CERT_AUTHORITY_DATA
@@ -26,11 +26,17 @@ steps:
       from_secret: K8S_USER
     K8S_PASSWORD:
       from_secret: K8S_PASSWORD
-    DB_URL: jdbc:mysql://mysql.production:3306/
     DB_NAME: vidaviajera
-  commands:
-  - /entrypoint.sh
-  - kubectl wait --for=condition=complete --timeout=2m job/flyway-migrator-${DRONE_REPO_NAME}-${CI_BUILD_NUMBER}
+    DB_SVC: mysql
+    DB_SVC_PORT: "3306"
+    NAMESPACE: production
+  build_args:
+  - -baselineOnMigrate=true
+  - -baselineVersion=1.2
+  - -url=jdbc:mysql://localhost:8080/
+  - -schemas="${DB_NAME}"
+  - -locations=filesystem:/sql
+  - migrate
   when:
     branch:
     - master

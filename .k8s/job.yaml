@@ -2,6 +2,7 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: flyway-migrator-${DRONE_REPO_NAME}-${CI_BUILD_NUMBER}
+  namespace: production
 spec:
   template:
     spec:
