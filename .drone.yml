@@ -16,7 +16,7 @@ steps:
     - sleep 20
     - flyway -user=root -password=abcd -url=jdbc:mysql://db:3306/test -schemas=test -locations=filesystem:sql -connectRetries=40 migrate
 - name: deploy
-  image: rubasace/flyway-port-forward
+  image: rubasace/flyway-port-forward:1.0.0
   environment:
     K8S_CERT_AUTHORITY_DATA:
       from_secret: K8S_CERT_AUTHORITY_DATA
