@@ -1,3 +1,24 @@
+CREATE TABLE region (
+	id INT PRIMARY KEY,
+	name VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE country (
+	code VARCHAR(2) PRIMARY KEY,
+    regionId INT NOT NULL,
+	name VARCHAR(50) NOT NULL,
+	lat float(2) NOT NULL,
+	lng float(2) NOT NULL,
+    CONSTRAINT FK_RegionId FOREIGN KEY (regionId) REFERENCES region(id)
+);
+
+INSERT INTO vidaviajera.region (id,name) VALUES (1,'África');
+INSERT INTO vidaviajera.region (id,name) VALUES (2,'América');
+INSERT INTO vidaviajera.region (id,name) VALUES (3,'Antártida');
+INSERT INTO vidaviajera.region (id,name) VALUES (4,'Asia');
+INSERT INTO vidaviajera.region (id,name) VALUES (5,'Europa');
+INSERT INTO vidaviajera.region (id,name) VALUES (6,'Oceanía');
+
 INSERT INTO vidaviajera.country (code,regionId,lat,lng,name) VALUES ('AF','4','33.0','65.0','Afganistán');
 INSERT INTO vidaviajera.country (code,regionId,lat,lng,name) VALUES ('AX','5','60.116667','19.9','Alandia');
 INSERT INTO vidaviajera.country (code,regionId,lat,lng,name) VALUES ('AL','5','41.0','20.0','Albania');
