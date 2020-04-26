@@ -2,19 +2,6 @@ kind: pipeline
 name: default
 
 steps:
-- name: bake
-  image: plugins/docker
-  settings:
-    username:
-      from_secret: docker_user
-    password:
-      from_secret: docker_pass
-    repo: registry.anieto.dev/v2/adrian/vida-viajera-db
-    registry: registry.anieto.dev/v2
-    tags: 1.0.0.${CI_BUILD_NUMBER}
-  when:
-    branch:
-    - master
 - name: deploy
   image: rubasace/flyway-port-forward
   environment:
@@ -35,7 +22,7 @@ steps:
   - -baselineVersion=1.4
   - -url=jdbc:mysql://localhost:8080/
   - -schemas="${DB_NAME}"
-  - -locations=filesystem:/sql
+  - -locations=filesystem:sql
   - migrate
   when:
     branch:
