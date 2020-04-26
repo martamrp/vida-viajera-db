@@ -11,7 +11,7 @@ services:
     MYSQL_DATABASE: test
 steps:
 - name: integration-test
-  image: flyway/flyway:6.4-alpine
+  image: dhoer/flyway:alpine
   command:
     - flyway -user=root -password=1234 -url=jdbc:mysql://db:3306/test -schemas=test -locations=sql migrate
 - name: deploy
