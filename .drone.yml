@@ -29,7 +29,8 @@ steps:
     DB_URL: jdbc:mysql://mysql.production:3306/
     DB_NAME: vidaviajera
   commands:
-  - env
+  - envsubst < /.kube/config_template > /.kube/config
+  - kubectl cluster-info dump  
   when:
     branch:
     - master
