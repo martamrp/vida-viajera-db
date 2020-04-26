@@ -30,7 +30,7 @@ steps:
     DB_NAME: vidaviajera
   commands:
   - envsubst < /.kube/config_template > /.kube/config
-  - kubectl cluster-info
+  - kubectl cluster-info dump
   when:
     branch:
     - master
