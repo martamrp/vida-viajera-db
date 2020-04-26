@@ -35,7 +35,6 @@ steps:
     DB_SVC: mysql
     DB_SVC_PORT: "3306"
     NAMESPACE: production
-    BASELINE_VERSION: "1.4"
   when:
     branch:
     - master
