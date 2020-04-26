@@ -1,4 +1,4 @@
-ALTER TABLE vidaviajera.user ADD password VARCHAR(60) NOT NULL;
+ALTER TABLE user ADD password VARCHAR(60) NOT NULL;
 
 INSERT INTO User (username, password) VALUES ('martamrp', '$2a$10$apXS9/d/yVwTots7nl4WAetxBm7JJYK4A9KgVnI/Nbjcbrna6f/wq');
 INSERT INTO User (username, password) VALUES ('adrian', '$2a$10$apXS9/d/yVwTots7nl4WAetxBm7JJYK4A9KgVnI/Nbjcbrna6f/wq');

@@ -1,7 +1,19 @@
 kind: pipeline
 name: default
 
+services:
+- name: db
+  image: mysql:8.0.18
+  build_args:
+  - --default-authentication-plugin=mysql_native_password
+  environment:
+    MYSQL_ROOT_PASSWORD: "1234"
+    MYSQL_DATABASE: test
 steps:
+- name: integration-test
+  image: flyway/flyway:alpine
+  command:
+    - flyway -user=root -password=1234 -url=jdbc:mysql://db:3306/test -schemas=test -locations=sql migrate
 - name: deploy
   image: rubasace/flyway-port-forward
   environment:
@@ -22,7 +34,7 @@ steps:
     DB_SVC: mysql
     DB_SVC_PORT: "3306"
     NAMESPACE: production
-    BASELINE_VERSION: "1.5"
+    BASELINE_VERSION: "1.4"
   when:
     branch:
     - master
