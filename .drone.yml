@@ -7,13 +7,13 @@ services:
   build_args:
   - --default-authentication-plugin=mysql_native_password
   environment:
-    MYSQL_ROOT_PASSWORD: "1234"
+    MYSQL_ROOT_PASSWORD: abcd
     MYSQL_DATABASE: test
 steps:
 - name: integration-test
   image: dhoer/flyway:alpine
   command:
-    - flyway -user=root -password=1234 -url=jdbc:mysql://db:3306/test -schemas=test -locations=filesystem:sql migrate
+    - flyway -user=root -password=abcd -url=jdbc:mysql://db:3306/test -schemas=test -locations=filesystem:sql migrate
 - name: deploy
   image: rubasace/flyway-port-forward
   environment:
