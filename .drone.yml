@@ -2,19 +2,19 @@ kind: pipeline
 name: default
 
 steps:
-# - name: bake
-#   image: plugins/docker
-#   settings:
-#     username:
-#       from_secret: docker_user
-#     password:
-#       from_secret: docker_pass
-#     repo: registry.anieto.dev/v2/adrian/vida-viajera-db
-#     registry: registry.anieto.dev/v2
-#     tags: 1.0.0.${CI_BUILD_NUMBER}
-#   when:
-#     branch:
-#     - master
+- name: bake
+  image: plugins/docker
+  settings:
+    username:
+      from_secret: docker_user
+    password:
+      from_secret: docker_pass
+    repo: registry.anieto.dev/v2/adrian/vida-viajera-db
+    registry: registry.anieto.dev/v2
+    tags: 1.0.0.${CI_BUILD_NUMBER}
+  when:
+    branch:
+    - master
 - name: deploy
   image: rubasace/drone-k8s
   environment:
@@ -29,8 +29,8 @@ steps:
     DB_URL: jdbc:mysql://mysql.production:3306/
     DB_NAME: vidaviajera
   commands:
-  - envsubst < /.kube/config_template > /.kube/config
-  - kubectl cluster-info dump  
+  - /entrypoint.sh
+  - kubectl wait --for=condition=complete --timeout=2m job/flyway-migrator-${DRONE_REPO_NAME}-${CI_BUILD_NUMBER}
   when:
     branch:
     - master
