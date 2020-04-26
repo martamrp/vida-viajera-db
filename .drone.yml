@@ -13,17 +13,12 @@ steps:
       from_secret: K8S_USER
     K8S_PASSWORD:
       from_secret: K8S_PASSWORD
+    DB_ENGINE: mysql
     DB_NAME: vidaviajera
     DB_SVC: mysql
     DB_SVC_PORT: "3306"
     NAMESPACE: production
-  build_args:
-  - -baselineOnMigrate=true
-  - -baselineVersion=1.4
-  - -url=jdbc:mysql://localhost:8080/
-  - -schemas="${DB_NAME}"
-  - -locations=filesystem:sql
-  - migrate
+    BASELINE_VERSION: "1.4"
   when:
     branch:
     - master
