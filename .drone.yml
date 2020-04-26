@@ -13,8 +13,8 @@ steps:
 - name: integration-test
   image: dhoer/flyway:alpine
   commands:
-    - sleep 45
-    - flyway -user=root -password=abcd -url=jdbc:mysql://db:3306/test -schemas=test -locations=filesystem:sql migrate
+    - sleep 20
+    - flyway -user=root -password=abcd -url=jdbc:mysql://db:3306/test -schemas=test -locations=filesystem:sql -connectRetries=40 migrate
 - name: deploy
   image: rubasace/flyway-port-forward
   environment:
