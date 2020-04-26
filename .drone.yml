@@ -13,6 +13,10 @@ steps:
       from_secret: K8S_USER
     K8S_PASSWORD:
       from_secret: K8S_PASSWORD
+    DB_USER:
+      from_secret: DB_USER
+    DB_PASSWORD:
+      from_secret: DB_PASSWORD
     DB_ENGINE: mysql
     DB_NAME: vidaviajera
     DB_SVC: mysql
